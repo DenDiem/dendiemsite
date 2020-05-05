@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <!-- Bootsrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+    <meta charset="UTF-8">
+    <title>Mafia club</title>
+</head>
+<body>
+
+<header id="header">
+    <div>
+        <div id="header-match-block">
+
+
+        </div>
+        <div id="header-menu">
+
+            <div class="logo-container">
+                <div class="logo_img"></div>
+
+            </div><!--
+        --><div class="header-menu-buttons">
+            <div class="username-name">
+                      </div>
+
+
+
+
+            <button><a href="/">News</a></button>
+            <button><a href="/add-news-page">Create news</a></button>
+
+            <button th:if="${#authorization.expression('isAuthenticated()')}"><a href="/user" th:if="${#authorization.expression('isAuthenticated()')}">Users</a></button><!--
+        --><!--
+        --> <button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/login" th:if="${#authorization.expression('!isAuthenticated()')}">Sign In</a></button><!--
+        --><button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/register" th:if="${#authorization.expression('!isAuthenticated()')}">Sign Up</a></button><!--
+        --><button th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:if="${#authorization.expression('isAuthenticated()')}">Sign Out</a></button>
+        </div>
+        </div>
+    </div>
+</header>
+
+<div sec:authorize="hasRole('USER')">
+    This will only be displayed if authenticated user has role ROLE_ADMIN.
+</div>
+<div id="main-content">
+    <div class="news-list">
+        <div class="news-list-title">News</div>
+        <div th:each="news: ${allNews}">
+            <div id="news-list-items" >
+                <div class="news-list-one-items">
+                    <a class="news-list-one-items-title">
+                        <p th:text="${news.newsTitle}"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hot-news-items" class="hot-news">
+
+            <div  class="hot-news-one-item" th:each="news: ${allNews}">
+
+                <div class="hot-news-one-item-title" th:text="${news.newsTitle}"></div>
+                <div class="hot-news-one-item-content" th:text="${news.getNewsMessage()}"></div>
+                <div class="news-author">
+                    <form class="news-button-spring" th:action="@{'/news/' + ${news.getId()}}" method="GET">
+                        <input type="submit" name="action" value="details" />
+                    </form>
+            Author: <div th:text="${news.getAuthor().getUsername()}">
+
+            </div></div>
+        </div>
+    </div>
+</div>
+
+    <footer id="footer" class="footer">
+
+    </footer>
+
+
+</body>
+</html>

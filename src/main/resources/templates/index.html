@@ -1,0 +1,35 @@
+<!DOCTYPE html><html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Title</title>
+</head>
+<body>
+<a href="/login" th:if="${#authorization.expression('!isAuthenticated()')}">Sign In</a>
+<a href="/register" th:if="${#authorization.expression('!isAuthenticated()')}">Sign Up</a>
+<a href="/logout" th:if="${#authorization.expression('isAuthenticated()')}">Sign Out</a>
+<div class="box">
+
+    <table>
+        <thead>
+        <th>newsTitle</th>
+        <th>newsMessage</th>
+        <th>newsImage</th>
+        </thead>
+        <tbody>
+        <tr th:each="news: ${allNews}">
+            <td th:text="${news.newsTitle}"></td>
+            <td th:text="${news.newsMessage}"></td>
+            <td th:text="${news.author.getUsername()}"></td>
+            <td><form th:action="@{'/news/' + ${news.id}}" method="GET">
+                <input type="submit" name="action" value="details" />
+            </form></td>
+        </tr>    </tbody>
+    </table>
+
+    <form action="/add-news-page" method="GET">
+        <input type="submit" name="action" value="add" />
+    </form>
+</div>
+</body>
+</html>
