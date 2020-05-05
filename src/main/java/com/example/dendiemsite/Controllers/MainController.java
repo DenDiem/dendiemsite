@@ -39,7 +39,12 @@ public class MainController {
         }
 
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+        if (!user.getUsername().equals("admin")) {
+            user.setRoles(Collections.singleton(Role.USER));
+        } else {
+            user.setRoles(Collections.singleton(Role.ADMIN));
+        }
+
         System.out.println(user);
         System.out.println(11);
         userRepo.save(user);
