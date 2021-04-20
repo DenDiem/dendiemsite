@@ -2,13 +2,16 @@ package com.example.dendiemsite.Controllers;
 
 import com.example.dendiemsite.Entity.CommentEntity;
 import com.example.dendiemsite.Entity.NewsEntity;
+import com.example.dendiemsite.Entity.TaskEntity;
 import com.example.dendiemsite.Entity.UserEntity;
 import com.example.dendiemsite.Model.NewsDTO;
 import com.example.dendiemsite.Service.CommentService;
 import com.example.dendiemsite.Service.NewsService;
+import com.example.dendiemsite.Service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +38,7 @@ public class NewsController {
         NewsService newsService = appContext.getBean(NewsService.class);
         newsService.createNews(newsModel,user);
 
+
         System.out.println("News added");
 
 
@@ -46,6 +50,7 @@ public class NewsController {
         model.addAttribute("allNews", newsService.findAllNews());
         return "dIndex";
     }
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping({"/add-news-page", ""})
     public String addNewsPage() {
         return "add-news-page";

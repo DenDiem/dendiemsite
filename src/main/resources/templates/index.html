@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
-    <title>Title</title>
+    <title>Electronic hospital</title>
 </head>
 <body>
 <a href="/login" th:if="${#authorization.expression('!isAuthenticated()')}">Sign In</a>
@@ -31,5 +31,6 @@
         <input type="submit" name="action" value="add" />
     </form>
 </div>
+
 </body>
 </html>

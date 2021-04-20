@@ -11,7 +11,7 @@
 
 
     <meta charset="UTF-8">
-    <title>Mafia club</title>
+    <title>Electronic hospital</title>
 </head>
 <body>
 
@@ -28,20 +28,17 @@
 
             </div><!--
         --><div class="header-menu-buttons">
-            <div class="username-name">
-            </div>
 
 
             <button><a href="/">News</a></button>
-            <button><a href="/add-news-page">Create news</a></button>
-
-
-            <button th:if="${#authorization.expression('isAuthenticated()')}"><a href="/user" th:if="${#authorization.expression('isAuthenticated()')}">Users</a></button><!--
-        --><!--
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/task-active-list">My clients</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/task-no-active-list">All clients</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/add-news-page">Create news</a></button>
+            <button sec:authorize="!hasAuthority('ADMIN')"><a href="/add_action" sec:authorize="!hasAuthority('ADMIN')">Start</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a href="/user" sec:authorize="hasAuthority('ADMIN')">Users</a></button><!--  --><!--
         --> <button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/login" th:if="${#authorization.expression('!isAuthenticated()')}">Sign In</a></button><!--
         --><button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/register" th:if="${#authorization.expression('!isAuthenticated()')}">Sign Up</a></button><!--
         --><button th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:if="${#authorization.expression('isAuthenticated()')}">Sign Out</a></button>
-
         </div>
         </div>
     </div>
@@ -62,10 +59,47 @@
         <input type="submit" name="action" value="News List" />
     </form>
 </div>
-
+<div class="box">
+    <div style="color: #C55D5D " class="name-box">Add task</div>
+    <form action="/add-task"  method="post">
+        <p>Title: <input type="text" name="taskStartDate" /></p>
+        <button type="submit">Add</button>
+    </form>
+    <form action="/news-list" method="GET">
+        <input type="submit" name="action" value="News List" />
+    </form>
+</div>
 <footer id="footer" class="footer">
 
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    var topMenu = $('#header-menu').offset().top;       // get initial position of the element
+    var element = document.getElementById('header-menu');
+    var positionInfo = element.getBoundingClientRect();
+    var height = positionInfo.height;
+    var width = positionInfo.width;
+    console.log(height);
+
+    $(window).scroll(function () {                  // assign scroll event listener
+
+        var currentScroll = $(window).scrollTop(); // get current position
+
+        if (currentScroll >= topMenu) {           // apply position: fixed if you
+            $('#header-menu').css({                      // scroll to that element or below it
+                position: 'fixed',
+                width: '100%',
+                top: '0',
+                height: height
+            });
+        } else {                                   // apply position: static
+            $('#header-menu').css({                      // if you scroll above it
+                position: 'static'
+            });
+        }
+
+    });
+</script>
 
 
 </body>

@@ -184,11 +184,29 @@ header .header-match-one-item {
     color: #E5E5E5;
     background-color: #671B1B;
 }
-#header-menu button {
+#header-menu button,  #header-menu form {
     color: white;
     margin: 0 auto;
+
 }
-#header-menu button, #header-menu button:active, #header-menu button:focus {
+.main_btn_m{
+    appearance: none;
+    background: none !important;
+    background-color: transparent !important;
+    padding: 0 0 0 0;
+    border: none !important;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center
+;
+}
+#header-menu button, #header-menu form, #header-menu button:active, #header-menu button:focus {
     width: 15%;
     font-size: 110%;
     background: transparent;
@@ -197,10 +215,10 @@ header .header-match-one-item {
     border-style: solid;
     border-right: white 1px solid;
 }
-.header-menu-buttons {
+.header-menu-buttons,  #header-menu form {
     background-color: #C55D5D !important;
 }
-.header-menu-buttons button {
+.header-menu-buttons button,  #header-menu form {
     margin-top: 20px !important;
 }
 footer {
@@ -687,4 +705,24 @@ textarea {
     height: 175px;
     border: 1px black double;
     overflow: hidden;
+}
+.task-one-item{
+    border: black 1px dashed;
+    margin: 0 auto;
+    width: 90%;
+    background-color: white;
+    -webkit-box-shadow: 4px 9px 17px 1px rgba(115,68,115,0.63);
+    -moz-box-shadow: 4px 9px 17px 1px rgba(115,68,115,0.63);
+    box-shadow: 4px 9px 17px 1px rgba(115,68,115,0.63);
+    border-radius: 2px;
+}
+.day-name{
+    border: black 1px dashed;
+    margin: 0 auto;
+    width: 90%;
+    background-color: blue;
+    -webkit-box-shadow: 4px 9px 17px 1px rgb(115 68 115 / 63%);
+    -moz-box-shadow: 4px 9px 17px 1px rgba(115,68,115,0.63);
+    box-shadow: 4px 9px 17px 1px rgb(115 68 115 / 63%);
+    border-radius: 2px;
 }

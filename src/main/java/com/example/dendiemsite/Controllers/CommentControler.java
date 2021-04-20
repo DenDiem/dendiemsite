@@ -24,6 +24,13 @@ public class CommentControler {
     @Autowired
     private ApplicationContext appContext;
 
+    /**
+     *
+     * @param user
+     * @param commentEntity
+     * @param model
+     * @return
+     */
     @PostMapping(value = "/add-comment")
     public String addComment(
             @AuthenticationPrincipal UserEntity user,
