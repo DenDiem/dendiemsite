@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <!-- Bootsrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+    <meta charset="UTF-8">
+    <title>Electronic hospital</title>
+</head>
+<body>
+
+<header id="header">
+    <div>
+        <div id="header-match-block">
+
+
+        </div>
+        <div id="header-menu">
+
+            <div class="logo-container">
+                <div class="logo_img"></div>
+
+            </div><!--
+        --><div class="header-menu-buttons">
+
+
+            <button><a href="/">News</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/task-active-list">My clients</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/task-no-active-list">All clients</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a  href="/add-news-page">Create news</a></button>
+            <button sec:authorize="!hasAuthority('ADMIN')"><a href="/add_action" sec:authorize="!hasAuthority('ADMIN')">Start</a></button>
+            <button sec:authorize="hasAuthority('ADMIN')"><a href="/user" sec:authorize="hasAuthority('ADMIN')">Users</a></button><!--  --><!--
+        --> <button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/login" th:if="${#authorization.expression('!isAuthenticated()')}">Sign In</a></button><!--
+        --><button th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/register" th:if="${#authorization.expression('!isAuthenticated()')}">Sign Up</a></button><!--
+        --><button th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:if="${#authorization.expression('isAuthenticated()')}">Sign Out</a></button>
+        </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="main-content">
+    <div class="comments-block">
+        <div id="coments-items">
+            <div class="task-one-item" th:each="task: ${tasks}">
+                <span class="username" th:text="${task.getAuthor().getUsername()}">Flo</span>
+                <span style="text-align-all: right"><span class="username" th:text="${task.getTaskStartDate()}">Flo</span></span>
+                <vl></vl>
+                <form class="news-button-spring" th:action="@{'/task-admin/' + ${task.getAuthor().getId()}}" method="GET">
+                    <input type="submit" name="action" value="Переглянути" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer id="footer" class="footer">
+    test
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    var topMenu = $('#header-menu').offset().top;       // get initial position of the element
+    var element = document.getElementById('header-menu');
+    var positionInfo = element.getBoundingClientRect();
+    var height = positionInfo.height;
+    var width = positionInfo.width;
+    console.log(height);
+
+    $(window).scroll(function () {                  // assign scroll event listener
+
+        var currentScroll = $(window).scrollTop(); // get current position
+
+        if (currentScroll >= topMenu) {           // apply position: fixed if you
+            $('#header-menu').css({                      // scroll to that element or below it
+                position: 'fixed',
+                width: '100%',
+                top: '0',
+                height: height
+            });
+        } else {                                   // apply position: static
+            $('#header-menu').css({                      // if you scroll above it
+                position: 'static'
+            });
+        }
+
+    });
+</script>
+
+</body>
+</html>
